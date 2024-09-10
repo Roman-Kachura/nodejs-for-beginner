@@ -1,18 +1,24 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+import express from 'express'
+import mongoose from 'mongoose'
+import userRouter from "./src/users/userRouter.js";
+dotenv.config()
 
-const App = require('express')
-const mongoose = require('mongoose')
+const app = express()
 
-const uri = 'mongodb+srv://romakachyra:Y9k3K1nvDZ9hwxMh@nodejs-for-beginner-clu.ap2ok.mongodb.net/?retryWrites=true&w=majority&appName=nodejs-for-beginner-cluster'
+app.use(userRouter)
 
-const app = new App()
+app.get('/',(req,res) => {
+  return res.send({message:'Server works!'}).status(200)
+})
 
-app.listen(process.env.PORT, () => {
+async function startApp(){
   try{
-    mongoose.connect(uri)
-    console.log('Connected with the database has been successful!')
+    await mongoose.connect(process.env.DB_URL)
+    app.listen(process.env.PORT, () => console.log(`Server started on port: ${process.env.PORT}`))
   }catch (e) {
     console.log(e)
   }
-  console.log(`Server started on port: ${process.env.PORT}`)
-})
+}
+
+startApp()
