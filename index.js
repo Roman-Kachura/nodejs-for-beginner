@@ -1,11 +1,13 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
-import userRouter from "./src/users/userRouter.js";
+import userRouter from "./src/users/userRouter.js"
+
 dotenv.config()
 
 const app = express()
 
+app.use(express.json())
 app.use(userRouter)
 
 app.get('/',(req,res) => {

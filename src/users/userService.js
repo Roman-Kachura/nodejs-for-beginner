@@ -1,41 +1,50 @@
+import UserModel from './userSchema.js'
+
 class UserService {
   async createUser(name) {
     try {
-      return {message: 'create user'}
+      const user = await UserModel.create({name})
+      user.save()
+      return user
     } catch (e) {
-      console.log(e)
+      throw new Error(e)
     }
   }
 
   async getUsers() {
     try {
-      return {message: 'get users'}
+      const users = await UserModel.find({})
+      return users
     } catch (e) {
-      console.log(e)
+      throw new Error(e)
     }
   }
 
-  async getOneUser(id) {
+  async getOneUser(_id) {
     try {
-      return {message: 'get one user'}
+      const user = await UserModel.findOne({_id})
+      return user
     } catch (e) {
-      console.log(e)
+      throw new Error(e)
     }
   }
 
-  async updateUser(id, name) {
+  async updateUser(_id, name) {
     try {
-      return {message: 'update user'}
+      const user = await UserModel.findOneAndUpdate({_id}, {name})
+      await user.save()
+      return await UserModel.findOne({_id})
     } catch (e) {
-      console.log(e)
+      throw new Error(e)
     }
   }
 
-  async deleteUser(id) {
+  async deleteUser(_id) {
     try {
-      return {message: 'delete user'}
+      const user = await UserModel.findOneAndDelete({_id})
+      return {message:'User has been deleted successfully!'}
     } catch (e) {
-      console.log(e)
+      throw new Error(e)
     }
   }
 }
