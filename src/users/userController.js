@@ -1,4 +1,5 @@
 import userService from "./userService.js"
+import path from "path";
 
 class UserController {
   async createUser(req, res) {
@@ -10,7 +11,7 @@ class UserController {
       const data = await userService.createUser(name)
       return res.status(200).send(data)
     } catch (e) {
-      return res.status(500).send({message:e.message})
+      return res.status(500).send({message: e.message})
     }
   }
 
@@ -19,7 +20,7 @@ class UserController {
       const data = await userService.getUsers()
       return res.status(200).send(data)
     } catch (e) {
-      return res.status(500).send({message:e.message})
+      return res.status(500).send({message: e.message})
     }
   }
 
@@ -29,7 +30,7 @@ class UserController {
       const data = await userService.getOneUser(id)
       return res.status(200).send(data)
     } catch (e) {
-      return res.status(500).send({message:e.message})
+      return res.status(500).send({message: e.message})
     }
   }
 
@@ -40,7 +41,7 @@ class UserController {
       const data = await userService.updateUser(id, name)
       return res.status(200).send(data)
     } catch (e) {
-      return res.status(500).send({message:e.message})
+      return res.status(500).send({message: e.message})
     }
   }
 
@@ -49,8 +50,12 @@ class UserController {
       const data = await userService.deleteUser(req.params.id)
       return res.status(200).send(data)
     } catch (e) {
-      return res.status(500).send({message:e.message})
+      return res.status(500).send({message: e.message})
     }
+  }
+
+  getUsersPage(req, res) {
+    return res.sendFile(path.resolve('static', 'users.html'))
   }
 }
 

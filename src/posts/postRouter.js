@@ -3,10 +3,12 @@ import postController from './postController.js'
 
 const router = Router()
 
-router.post('/posts', postController.createPost)
-router.get('/posts', postController.getPosts)
-router.get('/posts/:id', postController.getOnePost)
-router.put('/posts/:id', postController.updatePost)
-router.delete('/posts/:id', postController.deletePost)
+router.get('/posts', postController.getPostsPage)
+
+router.post('/api/posts', postController.createPost)
+router.get('/api/posts', postController.getPosts)
+router.get('/api/posts/:id', postController.getOnePost)
+router.put('/api/posts/:id', postController.updatePost)
+router.delete('/api/posts/:id', postController.deletePost)
 
 export default router

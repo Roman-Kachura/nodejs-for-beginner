@@ -3,10 +3,12 @@ import {Router} from "express"
 
 const userRouter = Router()
 
-userRouter.post('/users', userController.createUser)
-userRouter.get('/users', userController.getUsers)
-userRouter.get('/users/:id', userController.getOneUser)
-userRouter.put('/users/:id', userController.updateUser)
-userRouter.delete('/users/:id', userController.deleteUser)
+userRouter.get('/users', userController.getUsersPage)
+
+userRouter.post('/api/users', userController.createUser)
+userRouter.get('/api/users', userController.getUsers)
+userRouter.get('/api/users/:id', userController.getOneUser)
+userRouter.put('/api/users/:id', userController.updateUser)
+userRouter.delete('/api/users/:id', userController.deleteUser)
 
 export default userRouter

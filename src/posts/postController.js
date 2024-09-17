@@ -1,9 +1,10 @@
 import postService from "./postService.js"
+import path from "path";
 
 class postController {
   async createPost(req, res) {
     try {
-      const data = await postService.createPost(req.body)
+      const data = await postService.createPost(req.body, req.files.picture)
       return res.status(200).send(data)
     } catch (e) {
       return res.status(500).send({message: e.message})
@@ -30,7 +31,7 @@ class postController {
 
   async updatePost(req, res) {
     try {
-      const data = await postService.updatePost(req.params.id, req.body)
+      const data = await postService.updatePost(req.params.id, req.body, req.files?.picture)
       return res.status(200).send(data)
     } catch (e) {
       return res.status(500).send({message: e.message})
@@ -44,6 +45,10 @@ class postController {
     } catch (e) {
       return res.status(500).send({message: e.message})
     }
+  }
+
+  getPostsPage(req, res) {
+    return res.sendFile(path.resolve('static', 'posts.html'))
   }
 }
 
