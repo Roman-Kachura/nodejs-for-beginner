@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>nodejs for beginner</title>
 	<link rel="stylesheet" href="/css/styles.css">
-	<link rel="stylesheet" href="/css/users.css">
 </head>
 <body>
 <header class="header">
@@ -17,9 +16,36 @@
 <main class="content">
 	<h3 class="content-title">users</h3>
 	<div class="content-adding">
-		<input type="text" class="content-input">
+		<input type="text" placeholder="Enter user name" class="content-input">
 		<button class="content-btn">+</button>
 	</div>
+
+	<section id="user-block" class="content-block">
+		<article class="content-block-item">
+			<div class="item-text">ID:<strong>12351241</strong></div>
+			<div class="item-text">Name:<strong>Roman</strong></div>
+			<div class="item-text">Surname:<strong>Kachura</strong></div>
+		</article>
+	</section>
 </main>
+<script>
+  const userBlock = document.getElementById('user-block')
+
+
+  const getUsers =  () => fetch('http://localhost:8080/api/users', {method: 'GET'}).then(response => response.json()).then(data => data)
+	const renderUsers = async () => {
+		const users = await getUsers();
+    const elements = users.map(u => (
+      `<article class="content-block-item">
+					<div class="item-text">ID:<strong>${u._id}</strong></div>
+					<div class="item-text">Name:<strong>${u.name}</strong></div>
+			 </article>`
+		))
+    userBlock.innerHTML = elements.join('')
+	}
+
+  renderUsers()
+
+</script>
 </body>
 </html>
